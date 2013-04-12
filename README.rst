@@ -1,4 +1,4 @@
 PictureShare
 ============
 
-Picture sharing + albums site written in Python
+Django picture sharing site
