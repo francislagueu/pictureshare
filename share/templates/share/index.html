@@ -1,0 +1,20 @@
+<h1>Latest Albums</h1>
+{% if latest_albums %}
+<ul>
+    {% for album in latest_albums %}
+    <li><a href="/share/albums/{{album.id}}/">{{album.name}}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No visible albums available!</p>
+{% endif %}
+<h1>Latest Photos</h1>
+{% if latest_photos %}
+<ul>
+    {% for photo in latest_photos %}
+    <li><a href="/share/photos/{{photo.id}}/">{{photo.name}}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No visible photos available!</p>
+{% endif %}

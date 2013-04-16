@@ -2,23 +2,23 @@ from django.conf.urls.defaults import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from django.views.generic.simple import redirect_to
 admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'pictureshare.views.home', name='home'),
     # url(r'^pictureshare/', include('pictureshare.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
+    url(r'^$', redirect_to, {'url': '/share/'}),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^share/', include('share.urls')),
+    url(r'^accounts/', include('registration.urls')),
 )
 
 from django.conf import settings
 
 if settings.DEBUG:
-        urlpatterns += patterns('',
-                       (r'^storage/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-                       )
+    urlpatterns += patterns('',
+                           (r'^storage/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+                           )

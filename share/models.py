@@ -1,5 +1,6 @@
 from django.db import models
 import os
+from django.contrib.auth.models import User
 
 class Album (models.Model):
     name = models.CharField(max_length=200)
@@ -22,3 +23,6 @@ class Photo (models.Model):
         path = self.image.path
         super(Photo, self).delete(*args, **kwargs)
         storage.delete(path)
+
+class UserAccount (models.Model):
+    user = models.OneToOneField(User)
