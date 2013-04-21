@@ -1,0 +1,8 @@
+<ul>
+    <div class="title">{{ album.name }}</div>
+        {% for img in images.object_list %}
+            <a href="{% url share.views.photo img.pk %}"><img border="0" alt=""
+                src="{{ media_url }}{{ img.image.name }}"
+                {% if img.image.width > 400 %}width="400"{% endif %} /></a>
+        {% endfor %}
+</ul>

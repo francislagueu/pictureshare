@@ -15,9 +15,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'pictureshare',                      # Or path to database file if using sqlite3.
-        'USER': 'pictureshare',                      # Not used with sqlite3.
-        'PASSWORD': '390ps',                  # Not used with sqlite3.
-        'HOST': os.getenv('MYSQLADDR'),                      # Set to empty string for localhost. Not used with sqlite3.
+        'USER': 'sagiyin',                      # Not used with sqlite3.
+        'PASSWORD': '390pictureshare',                  # Not used with sqlite3.
+        'HOST': 'pictureshare.cf38nh10mpgl.us-west-2.rds.amazonaws.com',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
@@ -56,7 +56,7 @@ MEDIA_ROOT = os.path.join(os.path.expanduser('~'), 'django/storage')
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = 'http://ec.ohofzero.com' + (':8000' if DEBUG else '') + '/storage/'
+MEDIA_URL = 'http://ec2-54-245-140-233.us-west-2.compute.amazonaws.com' + (':8000' if DEBUG else '') + '/storage/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
