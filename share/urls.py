@@ -6,4 +6,5 @@ urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^albums/(\d+)/$', views.album, name='album'),
     url(r'^photos/(\d+)/$', views.photo, name='photo'),
+    url(r'^img/(\d+)/$', views.img, name='img'),
 )
