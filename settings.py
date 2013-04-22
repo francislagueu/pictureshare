@@ -15,9 +15,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'pictureshare',                      # Or path to database file if using sqlite3.
-        'USER': 'sagiyin',                      # Not used with sqlite3.
-        'PASSWORD': '390pictureshare',                  # Not used with sqlite3.
-        'HOST': 'pictureshare.cf38nh10mpgl.us-west-2.rds.amazonaws.com',                      # Set to empty string for localhost. Not used with sqlite3.
+        'USER': 'pictureshare',                      # Not used with sqlite3.
+        'PASSWORD': '390ps',                  # Not used with sqlite3.
+        'HOST': os.getenv('MYSQLADDR'),                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
