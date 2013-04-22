@@ -4,12 +4,17 @@
 {% block content %}
 
 <ul>
-    <div class="title">{{ album.name }}</div>
-        {% for img in images.object_list %}
-            <a href="{% url share.views.photo img.pk %}"><img border="0" alt=""
-                src="{{ media_url }}{{ img.image.name }}"
-                {% if img.image.width > 400 %}width="400"{% endif %} /></a>
-        {% endfor %}
+    <div class="title">{{ album.name }} [{% if album.private %}Private{% else %}Public{% endif %}] </div>
+    <a href="{%url share.views.delete_album album.pk %}"> Delete this album </a>
+    <a href="{%url share.views.change_album_privacy album.pk 'True' %}"> Make this album private</a>
+    <a href="{%url share.views.change_album_privacy album.pk 'False' %}"> Make this album public</a>
+    <ul>
+      {% for img in images.object_list %}
+      <a href="{% url share.views.photo img.pk %}">
+	<img border="0" alt="" src="{{ media_url }}{{ img.image.name }}"
+            {% if img.image.width > 400 %}width="400"{% endif %} /> </a>
+      {% endfor %}
+    </ul>
 </ul>
 
 {% endblock %}

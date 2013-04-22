@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django import forms
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.shortcuts import redirect
 from django.shortcuts import render
 from share.models import *
 from settings import MEDIA_URL
@@ -14,8 +15,8 @@ def index (request):
     private_photos = []
 
     if request.user.is_authenticated():
-      private_albums = Album.objects.filter(author=request.user);
-      private_photos = Photo.objects.filter(author=request.user);
+      private_albums = Album.objects.filter(private=True).filter(author=request.user);
+      private_photos = Photo.objects.filter(private=True).filter(author=request.user);
 
     latest_albums = sorted(chain(public_albums, private_albums), key=attrgetter('modified_date'))[:5];
     latest_photos = sorted(chain(public_photos, private_photos), key=attrgetter('created_date'))[:5];
@@ -63,3 +64,41 @@ def album(request, pk):
         'media_url' : MEDIA_URL,
     }
     return render(request, "share/album.html", context)
+
+def delete_album(request, pk):
+    album = Album.objects.get(pk=pk)
+    if request.user==album.author:
+        album.delete()
+        return redirect('index')
+    else:
+        return render(request, "share/access_denied.html")
+
+def delete_photo(request, pk):
+    photo = Photo.objects.get(pk=pk)
+    if request.user==photo.author:
+        photo.delete()
+        return redirect('index')
+    else:
+        return render(request, "share/access_denied.html")
+   
+
+def change_album_privacy(request, pk, private):
+    album = Album.objects.get(pk=pk)
+    if request.user==album.author:
+        album.private = private.startswith('T')
+        album.save()
+        return redirect('album', pk)
+    #return HttpResponse(str(album.private) + " " +str(private) + " " + str(private != 0));
+    else:
+        return render(request, "share/access_denied.html")
+
+def change_photo_privacy(request, pk, private):
+    photo = Photo.objects.get(pk=pk)
+    if request.user==photo.author:
+        asdf = photo.private
+        photo.private = private.startswith('T')
+        photo.save()
+        return redirect('photo', pk)
+#        return HttpResponse(str(asdf) + str(photo.private) + " " +str(private) + " " + str(private.startswith('T')));
+    else:
+        return render(request, "share/access_denied.html")

@@ -7,7 +7,7 @@
 {% if latest_albums %}
 <ul>
     {% for album in latest_albums %}
-    <li><a href="/share/albums/{{album.id}}/">{{album.name}}</a></li>
+    <li><a href="/share/albums/{{album.id}}/">{{album.name}}</a> [{% if album.private %}Private{% else %}Public{% endif %}] </li>
     {% endfor %}
 </ul>
 {% else %}
@@ -17,7 +17,7 @@
 {% if latest_photos %}
 <ul>
     {% for photo in latest_photos %}
-    <li><a href="/share/photos/{{photo.id}}/">{{photo.name}}</a></li>
+    <li><a href="/share/photos/{{photo.id}}/">{{photo.name}}</a> [{% if photo.private %}Private{% else %}Public{% endif %}] </li>
     {% endfor %}
 </ul>
 {% else %}
