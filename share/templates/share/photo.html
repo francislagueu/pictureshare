@@ -1,0 +1,10 @@
+<a href="{{ backurl }}">&lt;&lt; back</a>
+<ul>
+    {% if image.name %}
+        <div class="album">{{ image.name }}</div>
+    {% endif %}
+
+    <ul>
+        <img border="0" alt="" src="{{ media_url }}{{ image.image.name }}" width="900" />
+    </ul>
+</ul>
