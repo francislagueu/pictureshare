@@ -12,6 +12,7 @@ from django.core.servers.basehttp import FileWrapper
 
 def index (request):
     public_albums = Album.objects.filter(private=False)
+    public_photos = Photo.objects.filter(private=False)
     private_albums = []
     private_photos = []
 
@@ -38,7 +39,6 @@ def photo (request, pk):
         'image': img,
         'user': request.user,
         'backurl': request.META["HTTP_REFERER"],
-        'media_url' : MEDIA_URL,
     }
     return render(request, "share/photo.html", context)
 
@@ -74,7 +74,6 @@ def album(request, pk):
         'album' : album,
         'images' : images,
         'user' : request.user,
-        'media_url' : MEDIA_URL,
     }
     return render(request, "share/album.html", context)
 

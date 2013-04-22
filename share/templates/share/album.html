@@ -11,7 +11,7 @@
     <ul>
       {% for img in images.object_list %}
       <a href="{% url share.views.photo img.pk %}">
-	<img border="0" alt="" src="{{ media_url }}{{ img.image.name }}"
+	<img border="0" alt="" src="{%url share.views.img img.pk %}"
             {% if img.image.width > 400 %}width="400"{% endif %} /> </a>
       {% endfor %}
     </ul>
