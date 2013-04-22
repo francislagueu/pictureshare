@@ -16,6 +16,9 @@ def index (request):
 
 def photo (request, pk):
     img = Photo.objects.get(pk=pk)
+    if img.private and not request.user==img.author:
+        return render(request, "share/access_denied.html")
+
     context = {
         'image': img,
         'user': request.user,
@@ -26,8 +29,9 @@ def photo (request, pk):
 
 def album(request, pk):
     album = Album.objects.get(pk=pk)
-    if album.private and not request.user.is_authenticated():
-        return HttpResponse("Error: you need to be logged in to view this album.")
+
+    if album.private and not request.user==album.author:
+        return render(request, "share/access_denied.html")
     
     images = Photo.objects.filter(albums__id=pk)
     paginator = Paginator(images, 30)

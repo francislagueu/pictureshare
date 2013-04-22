@@ -1,3 +1,8 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
 <a href="{{ backurl }}">&lt;&lt; back</a>
 <ul>
     {% if image.name %}
@@ -8,3 +13,5 @@
         <img border="0" alt="" src="{{ media_url }}{{ image.image.name }}" width="900" />
     </ul>
 </ul>
+
+{% endblock %}
