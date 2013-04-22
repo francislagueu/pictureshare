@@ -13,13 +13,5 @@ class PhotoAdmin (admin.ModelAdmin):
     inlines = [PhotoInline]
     exclude = ('albums',)
 
-class UserAccountInline (admin.StackedInline):
-    model = UserAccount
-
-class MyUserAdmin (UserAdmin):
-    inlines = [UserAccountInline]
-
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(Photo, PhotoAdmin)
-admin.site.unregister(User)
-admin.site.register(User, MyUserAdmin)

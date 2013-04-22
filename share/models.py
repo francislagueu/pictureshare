@@ -7,6 +7,7 @@ class Album (models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     private = models.BooleanField(default=True)
+    author = models.ForeignKey(User)
     def __unicode__ (self):
         return self.name
 
@@ -16,6 +17,7 @@ class Photo (models.Model):
     albums = models.ManyToManyField(Album)
     created_date = models.DateTimeField(auto_now_add=True)
     private = models.BooleanField(default=True)
+    author = models.ForeignKey(User)
     def __unicode__ (self):
         return self.name
     def delete (self, *args, **kwargs):
@@ -23,6 +25,3 @@ class Photo (models.Model):
         path = self.image.path
         super(Photo, self).delete(*args, **kwargs)
         storage.delete(path)
-
-class UserAccount (models.Model):
-    user = models.OneToOneField(User)
