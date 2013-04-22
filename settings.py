@@ -39,7 +39,7 @@ TIME_ZONE = 'America/Indianapolis'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
-SITE_ID = 1
+SITE_ID = 2
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -156,3 +156,16 @@ LOGGING = {
 }
 
 AUTH_PROFILE_MODULE = 'share.UserAccount'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# Host for sending e-mail.
+EMAIL_HOST = 'smtp.gmail.com'
+
+# Port for sending e-mail.
+EMAIL_PORT = 587
+
+# Optional SMTP authentication information for EMAIL_HOST.
+EMAIL_HOST_USER = 'pictureshare@ohofzero.com'
+EMAIL_HOST_PASSWORD = 'gmail390ps'
+EMAIL_USE_TLS = True
