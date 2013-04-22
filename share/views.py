@@ -4,14 +4,27 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.shortcuts import render
 from share.models import *
 from settings import MEDIA_URL
+from itertools import chain
+from operator import attrgetter
 
 def index (request):
-    latest_albums = Album.objects.order_by('-modified_date')[:5];
-    latest_photos = Photo.objects.order_by('-created_date')[:5];
+    public_albums = Album.objects.filter(private=False)
+    public_photos = Photo.objects.filter(private=False).order_by('-created_date')[:5];
+    private_albums = []
+    private_photos = []
+
+    if request.user.is_authenticated():
+      private_albums = Album.objects.filter(author=request.user);
+      private_photos = Photo.objects.filter(author=request.user);
+
+    latest_albums = sorted(chain(public_albums, private_albums), key=attrgetter('modified_date'))[:5];
+    latest_photos = sorted(chain(public_photos, private_photos), key=attrgetter('created_date'))[:5];
+    
     context = {
         'latest_albums': latest_albums,
         'latest_photos': latest_photos,
     }
+
     return render(request, 'share/index.html', context)
 
 def photo (request, pk):
