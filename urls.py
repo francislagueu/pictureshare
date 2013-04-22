@@ -15,10 +15,3 @@ urlpatterns = patterns('',
     url(r'^share/', include('share.urls')),
     url(r'^accounts/', include('registration.urls')),
 )
-
-from django.conf import settings
-
-if settings.DEBUG:
-    urlpatterns += patterns('',
-                           (r'^storage/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-                           )

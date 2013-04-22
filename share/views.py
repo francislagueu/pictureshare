@@ -4,13 +4,14 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.shortcuts import redirect
 from django.shortcuts import render
 from share.models import *
-from settings import MEDIA_URL
 from itertools import chain
 from operator import attrgetter
+from settings import MEDIA_ROOT
+import os, mimetypes
+from django.core.servers.basehttp import FileWrapper
 
 def index (request):
     public_albums = Album.objects.filter(private=False)
-    public_photos = Photo.objects.filter(private=False).order_by('-created_date')[:5];
     private_albums = []
     private_photos = []
 
@@ -40,6 +41,18 @@ def photo (request, pk):
         'media_url' : MEDIA_URL,
     }
     return render(request, "share/photo.html", context)
+
+def img (request, pk):
+    img = Photo.objects.get(pk=pk)
+    if img.private and not request.user==img.author:
+        return render(request, "share/access_denied.html")
+    ifile = open(img.image.path, 'rb')
+    fn, fe = os.path.splitext(img.image.path)
+    wrapper = FileWrapper(ifile)
+    response = HttpResponse(wrapper, mimetype=mimetypes.guess_type(img.image.path))
+    response['Content-Disposition'] = 'filename="%s"' % ifile.name
+    response['Content-Length'] = os.path.getsize(img.image.path)
+    return response
 
 def album(request, pk):
     album = Album.objects.get(pk=pk)
