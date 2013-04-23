@@ -4,8 +4,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-    <link rel="stylesheet" href="/style.css" />
-    <title>{% block title %}User test{% endblock %}</title>
+    <style>
+        body
+        {
+        }
+        h1
+        {
+        font-family:"Palatino";
+        }
+        *
+        {
+        font-family:"Verdana";
+        }
+    </style>
+    <title>{% block title %}Y-J PictureShare{% endblock %}</title>
 </head>
 
 <body>
@@ -31,6 +43,9 @@
     <div id="footer">
         {% block footer %}
         <hr />
+        <font size="2">
+        <p>Server time: {% now "D d M Y H:m" %}</br>&copy;{% now "Y" %} Yifan Yin &amp; Jerry Ma</p>
+        </font>
         {% endblock %}
     </div>
 </body>
