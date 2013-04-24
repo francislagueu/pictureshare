@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<a href="{{ backurl }}">&lt;&lt; back</a>
+<form action="." method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Add album" />
+{% endblock %}

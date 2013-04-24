@@ -28,7 +28,9 @@
 	{% if user.is_authenticated %}
 	{% trans "Logged in" %}: {{ user.username }} 
 	(<a href="{% url auth_logout %}">{% trans "Log out" %}</a> | 
-	<a href="{% url auth_password_change %}">{% trans "Change password" %}</a>)
+    <a href="{% url auth_password_change %}">{% trans "Change password" %}</a> |
+    <a href="{% url upload_photo %}">{% trans "Upload photo" %}</a> |
+    <a href="{% url add_album %}">{% trans "Add album" %}</a>)
 	{% else %}
 	<a href="{% url auth_login %}">{% trans "Log in" %}</a>
 	{% endif %}
@@ -44,7 +46,7 @@
         {% block footer %}
         <hr />
         <font size="2">
-        <p>Server time: {% now "D d M Y H:m" %}</br>&copy;{% now "Y" %} Yifan Yin &amp; Jerry Ma</p>
+        <p>Server time: {% now "D d M Y H:i" %}</br>&copy;{% now "Y" %} Yifan Yin &amp; Jerry Ma</p>
         </font>
         {% endblock %}
     </div>

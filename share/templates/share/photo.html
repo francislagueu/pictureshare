@@ -4,17 +4,15 @@
 {% block content %}
 
 <a href="{{ backurl }}">&lt;&lt; back</a>
-<ul>
     {% if image.name %}
         <div class="album">{{ image.name }} [{% if image.private %}Private{% else %}Public{% endif %}] </div>
     {% endif %}
 
-    <a href="{%url share.views.delete_photo image.pk %}"> Delete this photo </a>
-    <a href="{%url share.views.change_photo_privacy image.pk 'True' %}"> Make this photo private</a>
-    <a href="{%url share.views.change_photo_privacy image.pk 'False' %}"> Make this photo public</a>
+    <a href="{%url share.views.delete_photo image.pk %}">Delete this photo</a> 
+    <a href="{%url share.views.change_photo_privacy image.pk 'True' %}">Make this photo private</a> 
+    <a href="{%url share.views.change_photo_privacy image.pk 'False' %}">Make this photo public</a>
     <ul>
         <img border="0" alt="" src="{%url share.views.img image.pk %}" width="900" />
     </ul>
-</ul>
 
 {% endblock %}

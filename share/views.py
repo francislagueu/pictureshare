@@ -9,6 +9,7 @@ from operator import attrgetter
 from settings import MEDIA_ROOT
 import os, mimetypes
 from django.core.servers.basehttp import FileWrapper
+from share.forms import * 
 
 def index (request):
     public_albums = Album.objects.filter(private=False)
@@ -107,10 +108,36 @@ def change_album_privacy(request, pk, private):
 def change_photo_privacy(request, pk, private):
     photo = Photo.objects.get(pk=pk)
     if request.user==photo.author:
-        asdf = photo.private
         photo.private = private.startswith('T')
         photo.save()
         return redirect('photo', pk)
-#        return HttpResponse(str(asdf) + str(photo.private) + " " +str(private) + " " + str(private.startswith('T')));
     else:
         return render(request, "share/access_denied.html")
+
+def upload_photo(request):
+    if request.user.is_authenticated():
+        if request.method == 'POST':
+            form = PhotoForm(request.POST, request.FILES,
+                             instance = Photo(author=request.user))
+            if form.is_valid():
+                photo = form.save()
+                return redirect('index')
+        else:
+            form = PhotoForm()
+        return render(request, 'share/upload_photo.html', {'form': form})
+    else:
+        return render(request, 'share/access_denied.html')
+
+def add_album(request):
+    if request.user.is_authenticated():
+        if request.method == 'POST':
+            form = AlbumForm(request.POST, request.FILES,
+                             instance = Album(author=request.user))
+            if form.is_valid():
+                album = form.save()
+                return redirect('album', album.pk)
+        else:
+            form = AlbumForm()
+        return render(request, 'share/add_album.html', {'form': form})
+    else:
+        return render(request, 'share/access_denied.html')

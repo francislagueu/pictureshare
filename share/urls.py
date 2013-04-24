@@ -11,4 +11,6 @@ urlpatterns = patterns('',
     url(r'^albums/privacy/(\d+)/(\w+)/$', views.change_album_privacy, name='change_album_privacy'),
     url(r'^photos/privacy/(\d+)/(\w+)/$', views.change_photo_privacy, name='change_photo_privacy'),
     url(r'^img/(\d+)/$', views.img, name='img'),
+    url(r'^upload/photo/$', views.upload_photo, name='upload_photo'),
+    url(r'^add/album/$', views.add_album, name='add_album'),
 )
