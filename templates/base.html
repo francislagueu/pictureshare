@@ -27,12 +27,13 @@
 
 	{% if user.is_authenticated %}
 	{% trans "Logged in" %}: {{ user.username }} 
-	(<a href="{% url auth_logout %}">{% trans "Log out" %}</a> | 
-    <a href="{% url auth_password_change %}">{% trans "Change password" %}</a> |
-    <a href="{% url upload_photo %}">{% trans "Upload photo" %}</a> |
-    <a href="{% url add_album %}">{% trans "Add album" %}</a>)
+	<a href="{% url auth_logout %}">{% trans "Log out" %}</a> | 
+    <a href="{% url auth_password_change %}">{% trans "Change password" %}</a> | 
+    <a href="{% url upload_photo %}">{% trans "Upload photo" %}</a> | 
+    <a href="{% url add_album %}">{% trans "Add album" %}</a>
 	{% else %}
-	<a href="{% url auth_login %}">{% trans "Log in" %}</a>
+    <a href="{% url auth_login %}">{% trans "Log in" %}</a> | 
+    <a href="{% url registration_register %}">{% trans "Register" %}</a>
 	{% endif %}
 	<hr />
         {% endblock %}
