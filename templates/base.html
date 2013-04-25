@@ -100,7 +100,8 @@
 	{% else %}
     <a href="{% url auth_login %}">{% trans "Log in" %}</a> | 
     <a href="{% url registration_register %}">{% trans "Register" %}</a>
-	{% endif %}
+    {% endif %}
+    | <a href="{% url search %}">{% trans "Search" %}</a>
 	<hr />
         {% endblock %}
     </div>

@@ -13,4 +13,5 @@ urlpatterns = patterns('',
     url(r'^img/(\d+)/$', views.img, name='img'),
     url(r'^upload/photo/$', views.upload_photo, name='upload_photo'),
     url(r'^add/album/$', views.add_album, name='add_album'),
+    url(r'^search/$', views.search, name='search'),
 )

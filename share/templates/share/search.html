@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<a href="{{ backurl }}">&lt;&lt; back</a>
+<form action="." method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Search" />
+
+{% if results %}
+<h1>Search Results</h1>
+{% endif %}
+
+{% if albums %}
+<h2>Matching Albums</h1>
+<ul>
+{% for album in albums %}
+    <li><a href="{% url album album.id %}">{{album.name}}</a> [{% if album.private %}Private{% else %}Public{% endif %}] </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if photos %}
+<h2>Matching Photos</h2>
+<ul>
+{% for photo in photos %}
+    <li><a href="{% url photo photo.id %}">{{photo.name}}</a> [{% if photo.private %}Private{% else %}Public{% endif %}]
+{% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}

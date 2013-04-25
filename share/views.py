@@ -10,6 +10,7 @@ from settings import MEDIA_ROOT
 import os, mimetypes
 from django.core.servers.basehttp import FileWrapper
 from share.forms import * 
+from django.db.models import Q
 
 def index (request):
     public_albums = Album.objects.filter(private=False)
@@ -141,3 +142,19 @@ def add_album(request):
         return render(request, 'share/add_album.html', {'form': form})
     else:
         return render(request, 'share/access_denied.html')
+
+def search(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            qstring = form.cleaned_data['query']
+            user = request.user if request.user.is_authenticated() else None
+            photos = Photo.objects.all().filter(name__icontains=qstring).filter(Q(private=False) | Q(author=user)).order_by('-created_date')[:10]
+            albums = Album.objects.all().filter(name__icontains=qstring).filter(Q(private=False) | Q(author=user)).order_by('-modified_date')[:10]
+            return render(request, 'share/search.html', {'form': form,
+                                                  'results': True,
+                                                  'photos': photos,
+                                                  'albums': albums,})
+    else:
+        form = SearchForm()
+    return render(request, 'share/search.html', {'form': form})

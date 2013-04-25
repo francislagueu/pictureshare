@@ -8,3 +8,6 @@ class PhotoForm (ModelForm):
 class AlbumForm (ModelForm):
     class Meta:
         model = Album
+
+class SearchForm (Form):
+    query = CharField(max_length=100)
