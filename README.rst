@@ -1,8 +1,11 @@
+
 PictureShare
 ============
 
 Django picture sharing site
+
 Jerry Ma (ma127)
+
 Yifan Yin (yin6)
 
 Features
@@ -43,4 +46,4 @@ Development
 -----------
 
 This site is currently being developed on a Micro AWS EC2 Instance (Ubuntu).
-The development server is linked by default to ec.ohofzero.com:8080.
+The development server is linked by default to ec.ohofzero.com:8000.
