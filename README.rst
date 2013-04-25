@@ -1,4 +1,3 @@
-
 PictureShare
 ============
 
@@ -45,5 +44,6 @@ Features
 Development
 -----------
 
-This site is currently being developed on a Micro AWS EC2 Instance (Ubuntu).
-The development server is linked by default to ec.ohofzero.com:8000.
+This site is currently being developed on a Micro AWS EC2 Instance (Ubuntu),
+backed by an Amazon RDS Instance (MySQL Community Edition). The development
+server is linked by default to ec.ohofzero.com:8000.
