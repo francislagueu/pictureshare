@@ -4,9 +4,23 @@
 {% block content %}
 
     <div class="title">{{ album.name }} [{% if album.private %}Private{% else %}Public{% endif %}] </div>
-    <a href="{%url share.views.delete_album album.pk %}">Delete this album</a> 
-    <a href="{%url share.views.change_album_privacy album.pk 'True' %}">Make this album private</a> 
-    <a href="{%url share.views.change_album_privacy album.pk 'False' %}">Make this album public</a> 
+
+    <div class="infobar">
+      Last modified: {{album.modified_date}}
+    </div>
+
+    {% if user.is_authenticated%}
+    <div class="actions">
+      Actions:
+      <a href="{%url share.views.delete_album album.pk %}">Delete</a> 
+      {% if album.private %}
+      <a href="{%url share.views.change_album_privacy album.pk 'False' %}">Make this album public</a> 
+      {% else %}
+      <a href="{%url share.views.change_album_privacy album.pk 'True' %}">Make this album private</a> 
+      {% endif %}
+    </div>
+    {% endif %}
+
     <ul>
       {% for img in images.object_list %}
       <a href="{% url share.views.photo img.pk %}">
