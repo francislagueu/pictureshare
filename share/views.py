@@ -61,8 +61,8 @@ def album(request, pk):
 
     if album.private and not request.user==album.author:
         return render(request, "share/access_denied.html")
-    
-    images = Photo.objects.filter(albums__id=pk)
+    user = request.user if request.user.is_authenticated() else None 
+    images = Photo.objects.filter(Q(albums__id=pk) & (Q(private=False) | Q(author=user)))
     paginator = Paginator(images, 30)
     try: page = int(request.GET.get("page", '1'))
     except ValueError: page = 1
@@ -119,12 +119,12 @@ def upload_photo(request):
     if request.user.is_authenticated():
         if request.method == 'POST':
             form = PhotoForm(request.POST, request.FILES,
-                             instance = Photo(author=request.user))
+                             instance = Photo(author=request.user), user=request.user)
             if form.is_valid():
                 photo = form.save()
                 return redirect('index')
         else:
-            form = PhotoForm()
+            form = PhotoForm(user=request.user)
         return render(request, 'share/upload_photo.html', {'form': form})
     else:
         return render(request, 'share/access_denied.html')
@@ -149,8 +149,8 @@ def search(request):
         if form.is_valid():
             qstring = form.cleaned_data['query']
             user = request.user if request.user.is_authenticated() else None
-            photos = Photo.objects.all().filter(name__icontains=qstring).filter(Q(private=False) | Q(author=user)).order_by('-created_date')[:10]
-            albums = Album.objects.all().filter(name__icontains=qstring).filter(Q(private=False) | Q(author=user)).order_by('-modified_date')[:10]
+            photos = Photo.objects.all().filter(Q(name__icontains=qstring) | Q(author__username__icontains=qstring)).filter(Q(private=False) | Q(author=user)).order_by('-created_date')[:10]
+            albums = Album.objects.all().filter(Q(name__icontains=qstring) | Q(author__username__icontains=qstring)).filter(Q(private=False) | Q(author=user)).order_by('-modified_date')[:10]
             return render(request, 'share/search.html', {'form': form,
                                                   'results': True,
                                                   'photos': photos,
