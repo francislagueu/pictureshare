@@ -46,4 +46,5 @@ Development
 
 This site is currently being developed on a Micro AWS EC2 Instance (Ubuntu),
 backed by an Amazon RDS Instance (MySQL Community Edition). The development
-server is linked by default to ec.ohofzero.com:8000.
+server is linked by default to ec.ohofzero.com:8000 and may not be up at
+all times.
