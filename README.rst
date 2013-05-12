@@ -16,7 +16,7 @@ Features
   - E-mail activiation
   - Login
   - Change password
-  - **Forgot password**
+  - Forgot password
 
 - Browsing
 
@@ -33,13 +33,13 @@ Features
   - Add album page
   - Image files of private photos are inaccessible until authenticated with
     user's account
-  - **Albums and photos have unique privacy settings - a public album can 
-    include private pictures, which will not be shown in the public view**
-  - **Photos can be in multiple albums**
+  - Albums and photos have unique privacy settings - a public album can 
+    include private pictures, which will not be shown in the public view
+  - Photos can be in multiple albums
 
-- **Search Engine: basic search engine finds albums/photos where the title or
+- Search Engine: basic search engine finds albums/photos where the title or
   author username matches the query (sorted by date). Privacy filters are
-  built-in.**
+  built-in.
   
 Development
 -----------
